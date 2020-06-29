@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import * as actionTypes from "../../store/actions";
 import { connect } from "react-redux";
 
 import CounterControl from "../../components/CounterControl/CounterControl";
@@ -23,9 +23,10 @@ class Counter extends Component {
           label="Subtract 5"
           clicked={() => this.props.onSubtract(5)}
         />
-
         <hr />
-        <button onClick={this.props.onStoreResult}>Store Result</button>
+        <button onClick={() => this.props.onStoreResult(this.props.ctr)}>
+          Store Result
+        </button>
         <ul>
           {this.props.storedResults.map((strResult) => (
             <li
@@ -43,27 +44,38 @@ class Counter extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ctr: state.counter,
-    storedResults: state.results,
+    ctr: state.ctr.counter,
+    storedResults: state.res.results,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIncrementCounter: () => dispatch({ type: "INCREMENT" }),
+    onIncrementCounter: () => {
+      dispatch({ type: actionTypes.INCREMENT });
+    },
 
-    onDecrementCounter: () => dispatch({ type: "DECREMENT" }),
+    onDecrementCounter: () => {
+      dispatch({ type: actionTypes.DECREMENT });
+    },
 
-    onAdd: (quantity) =>
-      dispatch({ type: "ADD", payload: { quantity: quantity } }),
+    onAdd: (quantity) => {
+      dispatch({ type: actionTypes.ADD, payload: { quantity: quantity } });
+    },
 
-    onSubtract: (quantity) =>
-      dispatch({ type: "SUBTRACT", payload: { quantity: quantity } }),
+    onSubtract: (quantity) => {
+      dispatch({ type: actionTypes.SUBTRACT, payload: { quantity: quantity } });
+    },
 
-    onStoreResult: () => dispatch({ type: "STORE_RESULT" }),
+    onStoreResult: (result) =>
+      dispatch({ type: actionTypes.STORE_RESULT, payload: { result: result } }),
 
-    onDeleteResult: (deletedId) =>
-      dispatch({ type: "DELETE_RESULT", payload: { deletedId: deletedId } }),
+    onDeleteResult: (deletedId) => {
+      dispatch({
+        type: actionTypes.DELETE_RESULT,
+        payload: { deletedId: deletedId },
+      });
+    },
   };
 };
 
