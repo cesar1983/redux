@@ -14,7 +14,6 @@ const reducer = (state = initialState, action) => {
           value: action.payload.result,
         }),
       };
-      break;
 
     case actionTypes.DELETE_RESULT:
       const transformedResults = state.results.filter((str) => {
@@ -25,7 +24,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         results: transformedResults,
       };
-      break;
   }
 
   return state;
