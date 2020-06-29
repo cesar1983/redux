@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import * as actionTypes from "../../store/actions";
 import { connect } from "react-redux";
+import * as actionCreators from "../../store/actions";
 
 import CounterControl from "../../components/CounterControl/CounterControl";
 import CounterOutput from "../../components/CounterOutput/CounterOutput";
@@ -52,29 +52,27 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIncrementCounter: () => {
-      dispatch({ type: actionTypes.INCREMENT });
+      dispatch(actionCreators.increment());
     },
 
     onDecrementCounter: () => {
-      dispatch({ type: actionTypes.DECREMENT });
+      dispatch(actionCreators.decrement());
     },
 
     onAdd: (quantity) => {
-      dispatch({ type: actionTypes.ADD, payload: { quantity: quantity } });
+      dispatch(actionCreators.add(quantity));
     },
 
     onSubtract: (quantity) => {
-      dispatch({ type: actionTypes.SUBTRACT, payload: { quantity: quantity } });
+      dispatch(actionCreators.subtract(quantity));
     },
 
-    onStoreResult: (result) =>
-      dispatch({ type: actionTypes.STORE_RESULT, payload: { result: result } }),
+    onStoreResult: (result) => {
+      dispatch(actionCreators.storeResult(result));
+    },
 
     onDeleteResult: (deletedId) => {
-      dispatch({
-        type: actionTypes.DELETE_RESULT,
-        payload: { deletedId: deletedId },
-      });
+      dispatch(actionCreators.storeResult(deletedId));
     },
   };
 };
